@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestionnaire_de_commade_kiyotaka/Pages/Commande.dart';
 import 'package:gestionnaire_de_commade_kiyotaka/Pages/DetailCommande.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: DetailcommandePage(),
+        body: CommandePage(),
     ),);
   }
 }

@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailcommandePage extends StatefulWidget {
-  const DetailcommandePage({super.key});
-
+  DetailcommandePage({super.key, required this.food});
+var food;
   @override
   State<DetailcommandePage> createState() => _DetailcommandePageState();
 }
 
 class _DetailcommandePageState extends State<DetailcommandePage> {
+  Future<void> lancer_whatsapp() async{
+    final url=Uri.parse("https://wa.me/225${widget.food[1]}");
+    var whatsapp=launchUrl(url,mode: LaunchMode.externalApplication);
+  }
+  Future<void> lancer_telephone() async{
+    final url=Uri(scheme: 'tel',path:"225${widget.food[1]}" );
+    var whatsapp=launchUrl(url,mode: LaunchMode.externalApplication);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +26,8 @@ class _DetailcommandePageState extends State<DetailcommandePage> {
         SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset("assets/images/kiyotaka image entreprise.png",height: MediaQuery.of(context).size.height *0.4,width: MediaQuery.of(context).size.width *1,),
+              SizedBox(height: MediaQuery.of(context).size.height *0.08,),
+              Image.asset("assets/images/kiyotaka image entreprise.png",height: MediaQuery.of(context).size.height *0.3,width: MediaQuery.of(context).size.width *1,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -36,79 +46,105 @@ class _DetailcommandePageState extends State<DetailcommandePage> {
               Container(
                 margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
                 height: MediaQuery.of(context).size.height *0.035,
-                width: MediaQuery.of(context).size.width *1,child: Text("Identifiant : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
+                width: MediaQuery.of(context).size.width *1,child: Row(children: [
+                Text("Identifiant : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
+                Text("${widget.food[0]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
+
+              ],),
               ),
               Container(
                 margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
                 height: MediaQuery.of(context).size.height *0.035,
-                width: MediaQuery.of(context).size.width *1,child:Text("Nom complet : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
+                width: MediaQuery.of(context).size.width *1,child:Row(
+                children: [
+                  Text("Nom complet : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
+                  ,Text("${widget.food[5]}",style: TextStyle(fontFamily: "Poppins",color: Colors.green),),
+
+                ],),
               ),
               Container(
-                margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
-                height: MediaQuery.of(context).size.height *0.035,
-                width: MediaQuery.of(context).size.width *1,child: Text("Nom complet : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
-                height: MediaQuery.of(context).size.height *0.035,
-                width: MediaQuery.of(context).size.width *1,child:Text("Numero : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
-                height: MediaQuery.of(context).size.height *0.035,
-                width: MediaQuery.of(context).size.width *1,child:Text("Date : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
-                height: MediaQuery.of(context).size.height *0.035,
-                width: MediaQuery.of(context).size.width *1,child:Text("Date : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
-                height: MediaQuery.of(context).size.height *0.035,
-                width: MediaQuery.of(context).size.width *1,child:Text("Commande : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
-                height: MediaQuery.of(context).size.height *0.035,
-                width: MediaQuery.of(context).size.width *1,child:Text("Prix : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
-                height: MediaQuery.of(context).size.height *0.035,
-                width: MediaQuery.of(context).size.width *1,child:Text("Quantité : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height *0.03,),
-              Container(
-                height: MediaQuery.of(context).size.height *0.1,
-                width: MediaQuery.of(context).size.width *0.6,
-                decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width *0.1))
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(FontAwesomeIcons.whatsapp,color: Colors.white,size: MediaQuery.of(context).size.width *0.12,),
-                    Text("WHATSAPP",style: TextStyle(fontFamily: "Poppins",fontSize: MediaQuery.of(context).size.width *0.05,color: Colors.white),)
-                  ],),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height *0.03,),
+                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
+                  height: MediaQuery.of(context).size.height *0.035,
+                  width: MediaQuery.of(context).size.width *1,child:Row(
+                children: [
+                  Text("Numero : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
+                  ,Text("${widget.food[1]}",style: TextStyle(fontFamily: "Poppins",color: Colors.green),),
+
+                ],)      ),
 
               Container(
-                height: MediaQuery.of(context).size.height *0.1,
-                width: MediaQuery.of(context).size.width *0.6,
-                decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width *0.1))
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(FontAwesomeIcons.phone,color: Colors.white,size: MediaQuery.of(context).size.width *0.1,),
-                    Text("TELEPHONE",style: TextStyle(fontFamily: "Poppins",fontSize: MediaQuery.of(context).size.width *0.05,color: Colors.white),)
-                  ],),
-              ),
+                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
+                  height: MediaQuery.of(context).size.height *0.035,
+                  width: MediaQuery.of(context).size.width *1,child:Row(
+                children: [
+                  Text("Date : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
+                  ,Text("${widget.food[4]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
+
+                ],) ),
+              Container(
+                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
+                  height: MediaQuery.of(context).size.height *0.035,
+                  width: MediaQuery.of(context).size.width *1,child:Row(
+                children: [
+                  Text("Commande : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
+                  ,Text("${widget.food[3]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
+
+                ],)),
+              Container(
+                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
+                  height: MediaQuery.of(context).size.height *0.035,
+                  width: MediaQuery.of(context).size.width *1,child:Row(
+                children: [
+                  Text("Prix : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
+                  ,Text("${widget.food[6]} FCFA",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
+
+                ],)),
+              Container(
+                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.06),
+                  height: MediaQuery.of(context).size.height *0.035,
+                  width: MediaQuery.of(context).size.width *1,child:Row(
+                children: [
+                  Text("Quantite : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
+                  ,Text("x${widget.food[2]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
+
+                ],)),
+              SizedBox(height: MediaQuery.of(context).size.height *0.03,),
+              GestureDetector(
+                onTap: (){
+                  lancer_whatsapp();
+                },
+                child: Container(
+                  height: MediaQuery.of(context).size.height *0.1,
+                  width: MediaQuery.of(context).size.width *0.6,
+                  decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width *0.1))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.whatsapp,color: Colors.white,size: MediaQuery.of(context).size.width *0.12,),
+                      Text("WHATSAPP",style: TextStyle(fontFamily: "Poppins",fontSize: MediaQuery.of(context).size.width *0.05,color: Colors.white),)
+                    ],),
+                ),),
+              SizedBox(height: MediaQuery.of(context).size.height *0.03,),
+              GestureDetector(
+                onTap: (){lancer_telephone();},
+                child:
+                Container(
+                  height: MediaQuery.of(context).size.height *0.1,
+                  width: MediaQuery.of(context).size.width *0.6,
+                  decoration: BoxDecoration(
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width *0.1))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.phone,color: Colors.white,size: MediaQuery.of(context).size.width *0.1,),
+                      Text("TELEPHONE",style: TextStyle(fontFamily: "Poppins",fontSize: MediaQuery.of(context).size.width *0.05,color: Colors.white),)
+                    ],),
+                ),),
               SizedBox(height: MediaQuery.of(context).size.height *0.03,),
 
 
