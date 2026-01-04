@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="gestionnaire_de_commade_kiyotaka"
+        android:label="Commades kiyotaka's food"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
