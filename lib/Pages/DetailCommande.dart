@@ -11,11 +11,11 @@ var food;
 
 class _DetailcommandePageState extends State<DetailcommandePage> {
   Future<void> lancer_whatsapp() async{
-    final url=Uri.parse("https://wa.me/225${widget.food[1]}");
+    final url=Uri.parse("https://wa.me/225${widget.food["numero"]}");
     var whatsapp=launchUrl(url,mode: LaunchMode.externalApplication);
   }
   Future<void> lancer_telephone() async{
-    final url=Uri(scheme: 'tel',path:"225${widget.food[1]}" );
+    final url=Uri(scheme: 'tel',path:"225${widget.food["numero"]}" );
     var whatsapp=launchUrl(url,mode: LaunchMode.externalApplication);
   }
   @override
@@ -48,7 +48,7 @@ class _DetailcommandePageState extends State<DetailcommandePage> {
                 height: MediaQuery.of(context).size.height *0.035,
                 width: MediaQuery.of(context).size.width *1,child: Row(children: [
                 Text("Identifiant : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),),
-                Text("${widget.food[0]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
+                Text("${widget.food["id"]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
 
               ],),
               ),
@@ -58,7 +58,7 @@ class _DetailcommandePageState extends State<DetailcommandePage> {
                 width: MediaQuery.of(context).size.width *1,child:Row(
                 children: [
                   Text("Nom complet : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
-                  ,Text("${widget.food[5]}",style: TextStyle(fontFamily: "Poppins",color: Colors.green),),
+                  ,Text("${widget.food["nom"]}",style: TextStyle(fontFamily: "Poppins",color: Colors.green),),
 
                 ],),
               ),
@@ -68,7 +68,7 @@ class _DetailcommandePageState extends State<DetailcommandePage> {
                   width: MediaQuery.of(context).size.width *1,child:Row(
                 children: [
                   Text("Numero : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
-                  ,Text("${widget.food[1]}",style: TextStyle(fontFamily: "Poppins",color: Colors.green),),
+                  ,Text("${widget.food["numero"]}",style: TextStyle(fontFamily: "Poppins",color: Colors.green),),
 
                 ],)      ),
 
@@ -78,7 +78,7 @@ class _DetailcommandePageState extends State<DetailcommandePage> {
                   width: MediaQuery.of(context).size.width *1,child:Row(
                 children: [
                   Text("Date : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
-                  ,Text("${widget.food[4]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
+                  ,Text("${widget.food["date_commande"]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
 
                 ],) ),
               Container(
@@ -87,7 +87,7 @@ class _DetailcommandePageState extends State<DetailcommandePage> {
                   width: MediaQuery.of(context).size.width *1,child:Row(
                 children: [
                   Text("Commande : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
-                  ,Text("${widget.food[3]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
+                  ,Text("${widget.food["produit"]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
 
                 ],)),
               Container(
@@ -96,7 +96,7 @@ class _DetailcommandePageState extends State<DetailcommandePage> {
                   width: MediaQuery.of(context).size.width *1,child:Row(
                 children: [
                   Text("Prix : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
-                  ,Text("${widget.food[6]} FCFA",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
+                  ,Text("${widget.food["prix_produit"]} FCFA",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
 
                 ],)),
               Container(
@@ -105,7 +105,7 @@ class _DetailcommandePageState extends State<DetailcommandePage> {
                   width: MediaQuery.of(context).size.width *1,child:Row(
                 children: [
                   Text("Quantite : ",style: TextStyle(fontFamily: "Poppins",color: Color(0xFF632B23)),)
-                  ,Text("x${widget.food[2]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
+                  ,Text("x${widget.food["quantite"]}",style: TextStyle(fontFamily: "Poppins",color: Colors.orange),),
 
                 ],)),
               SizedBox(height: MediaQuery.of(context).size.height *0.03,),

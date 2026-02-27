@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:gestionnaire_de_commade_kiyotaka/Pages/DetailCommande.dart';
+import 'package:gestionnaire_de_commade_kiyotaka/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 class CommandePage extends StatefulWidget {
   const CommandePage({super.key});
 
@@ -12,35 +14,24 @@ class CommandePage extends StatefulWidget {
 }
 
 class _CommandePageState extends State<CommandePage> {
+
   var ensemble_de_donnee;
   var food=[];
+
   List <String> identifiant=[];
   Future <void> charger_commande() async{
-    final url=Uri.parse("http://192.168.1.42:8000/ensemble_des_commandes");
-    var message=await http.get(url);
-    setState(() {
-      ensemble_de_donnee=jsonDecode(message.body);
-    });
-    print(ensemble_de_donnee["resultat"].length);
-    int i=0;
-    print(ensemble_de_donnee["resultat"][1]);
-    while(i<ensemble_de_donnee["resultat"].length){
-      print(i);
-      if(!ensemble_de_donnee["resultat"][i][3].contains("CRÊPES")){
-        setState(() {
-          food.add(ensemble_de_donnee["resultat"][i]);
-        });
-      }else{
-        print("pas ajouté");
-      }
+    var nourriture=await supabase
+        .from("commandes")
+        .select("*");
+    print(nourriture);
+  for(int i=0;i<nourriture.length;i++){
+    if (!nourriture[i]["produit"].toString().contains("CRÊPE")){
       setState(() {
-        i++;
+        food.add(nourriture[i]);
       });
+
     }
-    print(ensemble_de_donnee["resultat"][0]);
-    print(food);
-
-
+  }
   }
 
   @override
@@ -87,7 +78,9 @@ class _CommandePageState extends State<CommandePage> {
                           children: [
                             Lottie.asset("assets/animations/Frying Pan Breakfast.json",height: MediaQuery.of(context).size.height *0.25,),
                             Text("Chargement...",style: TextStyle(color: Color(0xFF632B23),fontFamily: "Poppins"))
-                          ],)):ListView.builder(itemCount:food.length,itemBuilder: (context, index) => Container(
+                          ],)):ListView.builder(itemCount:food.length,itemBuilder: (context, index) {
+                            var item=food[index];
+                            return Container(
                       decoration: BoxDecoration(),
                       child: ListTile(
                         onTap: (){
@@ -96,10 +89,10 @@ class _CommandePageState extends State<CommandePage> {
                         title: Column(children: [
                           Container(
                             width: MediaQuery.of(context).size.width *1,
-                            child: Text("${food[index][3]} ",style: TextStyle(color: Color(0xFF632B23),fontFamily: "Poppins"),),
+                            child: Text("${food[index]["id"]}",style: TextStyle(color: Color(0xFF632B23),fontFamily: "Poppins"),),
                           ),Container(
                               width: MediaQuery.of(context).size.width *1,
-                              child: Text("${food[index][1]}",style: TextStyle(color: Colors.orange,fontFamily: "Poppins"),)
+                              child: Text("${food[index]["numero"]}",style: TextStyle(color: Colors.orange,fontFamily: "Poppins"),)
                           )],),leading: Container(
                         width: MediaQuery.of(context).size.width *0.12,
                         child:Icon(FontAwesomeIcons.burger,color: Colors.orangeAccent) ,),subtitle: Column(children: [
@@ -109,7 +102,7 @@ class _CommandePageState extends State<CommandePage> {
                             Row(children: [
                               Text("Prix : ",style: TextStyle(color: Color(0xFF632B23),fontFamily: "Poppins"),)
 
-                              ,Text("${food[index][6]} FCFA",style: TextStyle(color: Colors.green,fontFamily: "Poppins"),)
+                              ,Text("${food[index]["prix_produit"]} FCFA",style: TextStyle(color: Colors.green,fontFamily: "Poppins"),)
 
                             ],)
                         ),
@@ -120,7 +113,7 @@ class _CommandePageState extends State<CommandePage> {
                             Row(
                               children: [
                                 Text("Quantité : ",style: TextStyle(color: Color(0xFF632B23),fontFamily: "Poppins"),)
-                                ,Text("x${food[index][2]}",style: TextStyle(color: Colors.green,fontFamily: "Poppins"),)
+                                ,Text("x${food[index]["quantite"]}",style: TextStyle(color: Colors.green,fontFamily: "Poppins"),)
 
                               ],)
                         ),
@@ -128,10 +121,10 @@ class _CommandePageState extends State<CommandePage> {
                             width: MediaQuery.of(context).size.width *1,
                             color: Colors.white,
                             child:
-                            Text("${food[index][4]}",style: TextStyle(color: Colors.orange,fontFamily: "Poppins"),)
+                            Text("${food[index]["produit"]}",style: TextStyle(color: Colors.orange,fontFamily: "Poppins"),)
                         )
                       ],),trailing: Icon(Icons.subdirectory_arrow_right_outlined,color: Color(0xFF632B23)),),
-                    ),)
+                    );},)
                     ,)
 
                 ],)
